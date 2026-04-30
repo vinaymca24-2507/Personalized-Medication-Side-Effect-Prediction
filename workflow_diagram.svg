@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="820" viewBox="0 0 900 820">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#333" />
+    </marker>
+    <style>
+      .box { fill: #f8f9fa; stroke: #343a40; stroke-width: 2px; rx: 8px; ry: 8px; }
+      .box-ml { fill: #e9ecef; stroke: #495057; stroke-width: 2px; rx: 8px; ry: 8px; stroke-dasharray: 4; }
+      .text-title { font-family: Arial, sans-serif; font-size: 16px; font-weight: bold; fill: #212529; text-anchor: middle; }
+      .text-sub { font-family: Arial, sans-serif; font-size: 13px; fill: #495057; text-anchor: middle; }
+      .line { stroke: #495057; stroke-width: 2px; }
+    </style>
+  </defs>
+
+  <!-- Level 1: Input -->
+  <rect class="box" x="250" y="20" width="400" height="60" />
+  <text class="text-title" x="450" y="45">1. React Frontend: User Inputs</text>
+  <text class="text-sub" x="450" y="65">(Age, Sex, Comorbidities, Target Drug)</text>
+  
+  <line class="line" x1="450" y1="80" x2="450" y2="120" marker-end="url(#arrow)" />
+
+  <!-- Level 2: Backend -->
+  <rect class="box" x="250" y="120" width="400" height="60" />
+  <text class="text-title" x="450" y="145">2. Node.js Backend &amp; MongoDB</text>
+  <text class="text-sub" x="450" y="165">(Input Validation &amp; Drug Profile Retrieval)</text>
+
+  <line class="line" x1="450" y1="180" x2="450" y2="220" marker-end="url(#arrow)" />
+
+  <!-- Level 3: Hybrid Engine -->
+  <polygon points="450,220 580,260 450,300 320,260" fill="#f8f9fa" stroke="#343a40" stroke-width="2" />
+  <text class="text-title" x="450" y="265">3. Hybrid AI Engine</text>
+
+  <!-- Branch lines -->
+  <line class="line" x1="450" y1="300" x2="450" y2="330" />
+  <line class="line" x1="150" y1="330" x2="750" y2="330" />
+  
+  <line class="line" x1="150" y1="330" x2="150" y2="360" marker-end="url(#arrow)" />
+  <line class="line" x1="450" y1="330" x2="450" y2="360" marker-end="url(#arrow)" />
+  <line class="line" x1="750" y1="330" x2="750" y2="360" marker-end="url(#arrow)" />
+
+  <!-- Left Branch: Rules -->
+  <rect class="box" x="50" y="360" width="200" height="70" />
+  <text class="text-title" x="150" y="390">Rule-Based Engine</text>
+  <text class="text-sub" x="150" y="410">(Age/Condition Multipliers)</text>
+
+  <!-- Right Branch: NLP -->
+  <rect class="box" x="650" y="360" width="200" height="70" />
+  <text class="text-title" x="750" y="390">NLP Analysis</text>
+  <text class="text-sub" x="750" y="410">(TF-IDF String Frequencies)</text>
+
+  <!-- Center Branch: ML Ensemble (Detailed) -->
+  <rect class="box-ml" x="300" y="360" width="300" height="190" />
+  <text class="text-title" x="450" y="385">Ensemble ML Model</text>
+  <text class="text-sub" x="450" y="405">(OneVsRest Soft-Voting)</text>
+  
+  <!-- Sub-models in ML -->
+  <rect class="box" x="320" y="420" width="260" height="30" />
+  <text class="text-sub" x="450" y="440" font-weight="bold">Logistic Regression</text>
+
+  <rect class="box" x="320" y="460" width="260" height="30" />
+  <text class="text-sub" x="450" y="480" font-weight="bold">Random Forest Classifier</text>
+
+  <rect class="box" x="320" y="500" width="260" height="30" />
+  <text class="text-sub" x="450" y="520" font-weight="bold">Support Vector Machine (SVM)</text>
+
+  <!-- Connect 3 blocks to aggregation -->
+  <line class="line" x1="150" y1="430" x2="150" y2="600" />
+  <line class="line" x1="450" y1="550" x2="450" y2="600" />
+  <line class="line" x1="750" y1="430" x2="750" y2="600" />
+
+  <line class="line" x1="150" y1="600" x2="750" y2="600" />
+  <line class="line" x1="450" y1="600" x2="450" y2="640" marker-end="url(#arrow)" />
+
+  <!-- Level 4: Aggregation -->
+  <rect class="box" x="250" y="640" width="400" height="60" />
+  <text class="text-title" x="450" y="665">4. Weighted Aggregation</text>
+  <text class="text-sub" x="450" y="685">(45% ML + 35% Rules + 20% NLP)</text>
+
+  <line class="line" x1="450" y1="700" x2="450" y2="730" marker-end="url(#arrow)" />
+
+  <!-- Level 5: Explainable Output -->
+  <rect class="box" x="250" y="730" width="400" height="60" />
+  <text class="text-title" x="450" y="755">5. Dynamic Risk Dashboard</text>
+  <text class="text-sub" x="450" y="775">(Risk Badges &amp; Plain-Text Justifications)</text>
+  
+</svg>

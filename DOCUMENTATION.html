@@ -1,0 +1,999 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personalized Medication Side-Effect Predictor - Documentation</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        @page {
+            size: A4;
+            margin: 2cm;
+        }
+        
+        @media print {
+            body {
+                font-size: 11pt;
+            }
+            .no-print {
+                display: none;
+            }
+            h1, h2, h3 {
+                page-break-after: avoid;
+            }
+            pre, table {
+                page-break-inside: avoid;
+            }
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.7;
+            color: #1e293b;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            background: #ffffff;
+        }
+        
+        /* Cover Section */
+        .cover {
+            text-align: center;
+            padding: 80px 20px;
+            margin-bottom: 60px;
+            border-bottom: 3px solid #3b82f6;
+        }
+        
+        .cover h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #1e40af;
+            margin-bottom: 10px;
+            border: none;
+        }
+        
+        .cover .subtitle {
+            font-size: 1.3rem;
+            color: #64748b;
+            margin-bottom: 30px;
+        }
+        
+        .cover .disclaimer {
+            background: #fef3c7;
+            border-left: 4px solid #f59e0b;
+            padding: 15px 20px;
+            text-align: left;
+            font-size: 0.95rem;
+            color: #92400e;
+            border-radius: 0 8px 8px 0;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .cover .version {
+            margin-top: 40px;
+            font-size: 0.9rem;
+            color: #94a3b8;
+        }
+        
+        /* Print button */
+        .print-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #3b82f6;
+            color: white;
+            border: none;
+            padding: 15px 25px;
+            font-size: 1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+        
+        .print-btn:hover {
+            background: #2563eb;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.5);
+        }
+        
+        /* Headings */
+        h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #1e40af;
+            margin: 50px 0 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #3b82f6;
+        }
+        
+        h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #1e3a8a;
+            margin: 40px 0 15px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #93c5fd;
+        }
+        
+        h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #1d4ed8;
+            margin: 30px 0 12px;
+        }
+        
+        h4 {
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: #2563eb;
+            margin: 20px 0 10px;
+        }
+        
+        /* Paragraphs */
+        p {
+            margin-bottom: 15px;
+            color: #334155;
+        }
+        
+        /* Lists */
+        ul, ol {
+            margin: 15px 0;
+            padding-left: 25px;
+        }
+        
+        li {
+            margin-bottom: 8px;
+            color: #334155;
+        }
+        
+        li::marker {
+            color: #3b82f6;
+        }
+        
+        /* Code */
+        code {
+            font-family: 'Fira Code', 'Consolas', monospace;
+            background: #f1f5f9;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.9em;
+            color: #dc2626;
+        }
+        
+        pre {
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: 20px;
+            border-radius: 10px;
+            overflow-x: auto;
+            margin: 20px 0;
+            font-family: 'Fira Code', 'Consolas', monospace;
+            font-size: 0.85rem;
+            line-height: 1.5;
+        }
+        
+        pre code {
+            background: transparent;
+            color: #e2e8f0;
+            padding: 0;
+        }
+        
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 0.95rem;
+        }
+        
+        th {
+            background: #3b82f6;
+            color: white;
+            padding: 12px 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+        
+        td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        tr:nth-child(even) {
+            background: #f8fafc;
+        }
+        
+        tr:hover {
+            background: #eff6ff;
+        }
+        
+        /* Blockquotes */
+        blockquote {
+            border-left: 4px solid #f59e0b;
+            background: #fffbeb;
+            padding: 15px 20px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+            color: #92400e;
+            font-style: italic;
+        }
+        
+        /* Horizontal Rule */
+        hr {
+            border: none;
+            border-top: 2px solid #e2e8f0;
+            margin: 40px 0;
+        }
+        
+        /* Links */
+        a {
+            color: #2563eb;
+            text-decoration: none;
+        }
+        
+        a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Strong and Em */
+        strong {
+            font-weight: 600;
+            color: #1e293b;
+        }
+        
+        em {
+            color: #64748b;
+        }
+        
+        /* TOC */
+        .toc {
+            background: #f8fafc;
+            padding: 25px 30px;
+            border-radius: 10px;
+            margin: 30px 0;
+        }
+        
+        .toc h2 {
+            margin-top: 0;
+            border: none;
+            color: #1e40af;
+        }
+        
+        .toc ol {
+            list-style-type: decimal;
+        }
+        
+        .toc a {
+            color: #475569;
+        }
+        
+        .toc a:hover {
+            color: #2563eb;
+        }
+        
+        /* Architecture Diagram */
+        .diagram {
+            background: #f1f5f9;
+            padding: 25px;
+            border-radius: 10px;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.85rem;
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+        
+        /* Risk badges */
+        .risk-high { color: #dc2626; font-weight: 600; }
+        .risk-moderate { color: #d97706; font-weight: 600; }
+        .risk-low { color: #16a34a; font-weight: 600; }
+        
+        /* Feature icons */
+        .icon {
+            display: inline-block;
+            margin-right: 8px;
+        }
+    </style>
+</head>
+<body>
+    <button class="print-btn no-print" onclick="window.print()">📄 Download as PDF</button>
+    
+    <!-- Cover Page -->
+    <div class="cover">
+        <h1>Personalized Medication<br>Side-Effect Predictor</h1>
+        <p class="subtitle">Technical Documentation</p>
+        <div class="disclaimer">
+            <strong>⚠️ Important Disclaimer:</strong> This software is built purely for learning and demonstration purposes. It's not meant to replace your doctor's advice—please always consult a healthcare professional about your medications!
+        </div>
+        <p class="version">Version 1.0.0 | December 2025</p>
+    </div>
+
+    <!-- Table of Contents -->
+    <div class="toc">
+        <h2>📑 What's Inside This Guide</h2>
+        <ol>
+            <li><a href="#what-does-this-app-do">What Does This App Do?</a></li>
+            <li><a href="#how-everything-connects">How Everything Connects</a></li>
+            <li><a href="#the-tools-we-used">The Tools We Used to Build This</a></li>
+            <li><a href="#behind-the-scenes">Behind the Scenes</a></li>
+            <li><a href="#how-predictions-work">How Predictions Actually Work</a></li>
+            <li><a href="#how-we-store-info">How We Store Information</a></li>
+            <li><a href="#api-guide">Talking to the Server (API Guide)</a></li>
+            <li><a href="#user-interface">The User Interface</a></li>
+            <li><a href="#getting-it-running">Getting It Running</a></li>
+            <li><a href="#development-setup">Setting Up for Development</a></li>
+            <li><a href="#tweaking-settings">Tweaking the Settings</a></li>
+            <li><a href="#security">Keeping Things Secure</a></li>
+            <li><a href="#whats-next">What's Next?</a></li>
+        </ol>
+    </div>
+
+    <hr>
+
+    <!-- Section 1 -->
+    <h1 id="what-does-this-app-do">What Does This App Do?</h1>
+    
+    <p>Imagine you're curious about what side effects a medication might cause—but not just in general. You want to know what might happen for <em>you</em> specifically, based on your age, health conditions, and other personal factors.</p>
+    
+    <p>That's exactly what this application tries to help with. It's like having a smart assistant that looks at:</p>
+    
+    <ul>
+        <li><strong>The medication itself</strong> — what side effects are commonly reported</li>
+        <li><strong>Your personal details</strong> — age, sex, existing health conditions</li>
+        <li><strong>Patterns from similar patients</strong> — using machine learning</li>
+    </ul>
+    
+    <p>Then it combines all of this to give you a personalized prediction of potential side effects, ranked by how likely they might be for someone like you.</p>
+
+    <h3>Here's What You Can Do With It</h3>
+    
+    <table>
+        <tr>
+            <th>Feature</th>
+            <th>Description</th>
+        </tr>
+        <tr>
+            <td>🔍 Search for medications</td>
+            <td>Smart autocomplete feature finds drugs as you type</td>
+        </tr>
+        <tr>
+            <td>👤 Enter your profile</td>
+            <td>Include age, sex, and any conditions you have</td>
+        </tr>
+        <tr>
+            <td>🎯 Get personalized predictions</td>
+            <td>Based on three different analysis methods</td>
+        </tr>
+        <tr>
+            <td>📊 See clear risk levels</td>
+            <td>Easy color coding: green (low), yellow (moderate), red (high)</td>
+        </tr>
+        <tr>
+            <td>💡 Understand the "why"</td>
+            <td>We show you what factors contributed to each prediction</td>
+        </tr>
+        <tr>
+            <td>⚙️ Admin tools</td>
+            <td>Load data and train the prediction model</td>
+        </tr>
+    </table>
+
+    <hr>
+
+    <!-- Section 2 -->
+    <h1 id="how-everything-connects">How Everything Connects</h1>
+    
+    <p>Think of the app as having three main parts working together:</p>
+    
+    <div class="diagram">
+<pre>
+┌─────────────────────┐
+│   What You See      │
+│   (The Website)     │
+│   Built with React  │
+└──────────┬──────────┘
+           │ 
+           ▼ Your clicks and data
+┌─────────────────────┐     ┌──────────────────┐
+│   The Brain         │────▶│   The Memory     │
+│   (Node.js Server)  │     │   (MongoDB)      │
+└──────────┬──────────┘     └──────────────────┘
+           │
+           ▼ Number crunching
+┌─────────────────────┐
+│   The Smart Parts   │
+│   (Python ML & NLP) │
+└─────────────────────┘
+</pre>
+    </div>
+
+    <h3>Here's how a typical prediction works:</h3>
+    <ol>
+        <li>You fill out the form and click "Predict"</li>
+        <li>Your request travels to our Node.js server</li>
+        <li>The server looks up the drug in MongoDB</li>
+        <li>It then asks our Python services to run the smart analysis</li>
+        <li>Everything gets combined and sent back to you as a nice, readable result</li>
+    </ol>
+
+    <hr>
+
+    <!-- Section 3 -->
+    <h1 id="the-tools-we-used">The Tools We Used to Build This</h1>
+    
+    <h3>On the Server Side</h3>
+    <table>
+        <tr>
+            <th>Tool</th>
+            <th>Why We Chose It</th>
+        </tr>
+        <tr>
+            <td><strong>Node.js</strong></td>
+            <td>Fast, great for handling lots of requests</td>
+        </tr>
+        <tr>
+            <td><strong>Express.js</strong></td>
+            <td>Makes building web servers a breeze</td>
+        </tr>
+        <tr>
+            <td><strong>MongoDB</strong></td>
+            <td>Perfect for storing varied drug data</td>
+        </tr>
+        <tr>
+            <td><strong>Mongoose</strong></td>
+            <td>Helps us talk to MongoDB in a clean way</td>
+        </tr>
+        <tr>
+            <td><strong>Python</strong></td>
+            <td>The go-to language for machine learning</td>
+        </tr>
+        <tr>
+            <td><strong>scikit-learn</strong></td>
+            <td>Excellent library for building prediction models</td>
+        </tr>
+        <tr>
+            <td><strong>pandas</strong></td>
+            <td>Makes working with data tables easy</td>
+        </tr>
+    </table>
+
+    <h3>On the Website Side</h3>
+    <table>
+        <tr>
+            <th>Tool</th>
+            <th>Why We Chose It</th>
+        </tr>
+        <tr>
+            <td><strong>React</strong></td>
+            <td>Building interactive UIs is smooth and fun</td>
+        </tr>
+        <tr>
+            <td><strong>Vite</strong></td>
+            <td>Super fast development experience</td>
+        </tr>
+        <tr>
+            <td><strong>React Router</strong></td>
+            <td>Handles page navigation seamlessly</td>
+        </tr>
+        <tr>
+            <td><strong>Axios</strong></td>
+            <td>Clean and simple way to talk to our server</td>
+        </tr>
+    </table>
+
+    <h3>For Deployment</h3>
+    <table>
+        <tr>
+            <th>Tool</th>
+            <th>Why We Chose It</th>
+        </tr>
+        <tr>
+            <td><strong>Docker</strong></td>
+            <td>Package everything up neatly</td>
+        </tr>
+        <tr>
+            <td><strong>Docker Compose</strong></td>
+            <td>Run all pieces with one command</td>
+        </tr>
+        <tr>
+            <td><strong>Nginx</strong></td>
+            <td>Efficiently serve the website</td>
+        </tr>
+    </table>
+
+    <hr>
+
+    <!-- Section 4 -->
+    <h1 id="behind-the-scenes">Behind the Scenes</h1>
+    
+    <h3>The Prediction Service</h3>
+    <p>This is the conductor of our orchestra. When you ask for a prediction, this service:</p>
+    <ul>
+        <li>Gathers information from all three prediction methods</li>
+        <li>Weighs them according to how much we trust each one</li>
+        <li>Combines everything into a final score</li>
+        <li>Writes up an explanation so you know <em>why</em> we think what we think</li>
+    </ul>
+
+    <h3>The Machine Learning Service</h3>
+    <p>This is our pattern-finder. We trained it on patient data so it learned things like "older patients taking Drug X often report dizziness." When you submit your info, it compares you to patterns it's seen before.</p>
+    
+    <p><strong>How we taught it:</strong></p>
+    <ul>
+        <li>We showed it lots of patient profiles and their outcomes</li>
+        <li>It learned which combinations of age, sex, conditions, and drugs lead to which side effects</li>
+        <li>Now it can make educated guesses for new patients</li>
+    </ul>
+
+    <h3>The NLP (Text Analysis) Service</h3>
+    <p>This one reads drug descriptions and side effect lists. It understands which side effects are commonly mentioned together with which drugs, giving us another perspective on what to expect.</p>
+
+    <hr>
+
+    <!-- Section 5 -->
+    <h1 id="how-predictions-work">How Predictions Actually Work</h1>
+    
+    <p>We don't rely on just one method—that would be putting all our eggs in one basket! Instead, we combine three different approaches:</p>
+
+    <h3>The Three Amigos of Prediction</h3>
+    <table>
+        <tr>
+            <th>Method</th>
+            <th>Weight</th>
+            <th>What It Does</th>
+        </tr>
+        <tr>
+            <td><strong>Rules</strong></td>
+            <td>35%</td>
+            <td>Applies established medical knowledge (like "elderly patients have higher fall risk")</td>
+        </tr>
+        <tr>
+            <td><strong>Machine Learning</strong></td>
+            <td>45%</td>
+            <td>Finds patterns in data that humans might miss</td>
+        </tr>
+        <tr>
+            <td><strong>Text Analysis</strong></td>
+            <td>20%</td>
+            <td>Extracts insights from drug documentation</td>
+        </tr>
+    </table>
+
+    <h3>Age-Based Rules (The Practical Stuff)</h3>
+    
+    <p><strong>For folks 65 and older:</strong></p>
+    <ul>
+        <li>Dizziness risk goes up by 50%</li>
+        <li>Fall risk increases by 80%</li>
+        <li>Confusion risk rises by 40%</li>
+        <li>Bleeding risk jumps by 60%</li>
+        <li>Drowsiness risk climbs by 30%</li>
+    </ul>
+
+    <p><strong>For kids and teens (under 18):</strong></p>
+    <ul>
+        <li>We watch for growth-related effects (50% higher consideration)</li>
+        <li>Behavioral changes get extra attention (40% higher)</li>
+    </ul>
+
+    <h3>When Health Conditions Matter</h3>
+    <p>If you have certain conditions, some side effects become more likely:</p>
+    
+    <table>
+        <tr>
+            <th>Condition</th>
+            <th>What We Watch For</th>
+        </tr>
+        <tr>
+            <td><strong>Liver problems</strong></td>
+            <td>Liver toxicity risk doubles; Nausea might be more common</td>
+        </tr>
+        <tr>
+            <td><strong>Kidney issues</strong></td>
+            <td>Kidney-related side effects need extra attention; Fluid retention becomes a bigger concern</td>
+        </tr>
+        <tr>
+            <td><strong>Heart disease</strong></td>
+            <td>Heart rhythm issues watched more closely; Bleeding risk goes up</td>
+        </tr>
+        <tr>
+            <td><strong>Diabetes</strong></td>
+            <td>Blood sugar effects; Weight gain considerations</td>
+        </tr>
+        <tr>
+            <td><strong>Hypertension</strong></td>
+            <td>Dizziness; Blood pressure fluctuations</td>
+        </tr>
+        <tr>
+            <td><strong>Asthma</strong></td>
+            <td>Breathing difficulty (80% higher); Bronchospasm (100% higher)</td>
+        </tr>
+    </table>
+
+    <h3>Putting It All Together</h3>
+    <p>Here's the simple formula:</p>
+    <pre><code>Final Risk = (35% × Rules Score) + (45% × ML Score) + (20% × Text Score)</code></pre>
+
+    <h3>What the Colors Mean</h3>
+    <table>
+        <tr>
+            <th>Risk Level</th>
+            <th>Probability</th>
+            <th>What It Means</th>
+        </tr>
+        <tr>
+            <td><span class="risk-high">🔴 HIGH</span></td>
+            <td>70%+</td>
+            <td>Worth discussing with your doctor</td>
+        </tr>
+        <tr>
+            <td><span class="risk-moderate">🟡 MODERATE</span></td>
+            <td>40-69%</td>
+            <td>Be aware, monitor if needed</td>
+        </tr>
+        <tr>
+            <td><span class="risk-low">🟢 LOW</span></td>
+            <td>Under 40%</td>
+            <td>Less likely, but still possible</td>
+        </tr>
+    </table>
+
+    <hr>
+
+    <!-- Section 6 -->
+    <h1 id="how-we-store-info">How We Store Information</h1>
+    
+    <h3>Drug Information</h3>
+    <p>For each medication, we keep track of:</p>
+    <ul>
+        <li>Its name (and any other names people might call it)</li>
+        <li>What it's used for</li>
+        <li>Known side effects (how common they are, how serious they can be)</li>
+        <li>Special considerations for different age groups</li>
+        <li>Interactions with various health conditions</li>
+    </ul>
+
+    <h3>Patient Records (For Training)</h3>
+    <p>Our learning data includes:</p>
+    <ul>
+        <li>Which drug was taken</li>
+        <li>Patient age and sex</li>
+        <li>Pre-existing conditions</li>
+        <li>What side effects actually happened</li>
+    </ul>
+    <p>This helps our ML model learn from "experience."</p>
+
+    <hr>
+
+    <!-- Section 7 -->
+    <h1 id="api-guide">Talking to the Server (API Guide)</h1>
+    
+    <p>Want to integrate with our system or understand how the app communicates? Here's the technical stuff:</p>
+
+    <h3>Getting a Prediction</h3>
+    <p><strong>Send this to:</strong> <code>POST /api/predict</code></p>
+    
+    <p><strong>What to send:</strong></p>
+    <pre><code>{
+  "drugName": "Aspirin",
+  "age": 72,
+  "sex": "M",
+  "conditions": ["heart disease"]
+}</code></pre>
+
+    <p><strong>What you'll get back:</strong></p>
+    <pre><code>{
+  "success": true,
+  "drugName": "Aspirin",
+  "predictions": [
+    {
+      "sideEffect": "Bleeding",
+      "probability": 0.72,
+      "riskLevel": "high",
+      "reason": "Bleeding risk increases with age..."
+    }
+  ],
+  "confidence": 0.78
+}</code></pre>
+
+    <h3>Other Endpoints</h3>
+    <table>
+        <tr>
+            <th>Endpoint</th>
+            <th>Method</th>
+            <th>What It Does</th>
+        </tr>
+        <tr>
+            <td><code>/api/drugs?q=asp</code></td>
+            <td>GET</td>
+            <td>Search for medications</td>
+        </tr>
+        <tr>
+            <td><code>/api/seed</code></td>
+            <td>POST</td>
+            <td>Load sample data and train model</td>
+        </tr>
+        <tr>
+            <td><code>/api/health</code></td>
+            <td>GET</td>
+            <td>Check system status</td>
+        </tr>
+    </table>
+
+    <hr>
+
+    <!-- Section 8 -->
+    <h1 id="user-interface">The User Interface</h1>
+    
+    <h3>The Home Page</h3>
+    <p>This is where you'll spend most of your time. You'll see:</p>
+    <ul>
+        <li>A search box for finding your medication</li>
+        <li>Input fields for your age and sex</li>
+        <li>Checkboxes for any conditions you have</li>
+        <li>A big friendly "Predict" button</li>
+    </ul>
+
+    <h3>The Results Page</h3>
+    <p>After clicking predict, you'll see:</p>
+    <ul>
+        <li>A summary showing the drug name and how confident we are in our predictions</li>
+        <li>Your profile information</li>
+        <li>A list of potential side effects, ranked from most to least likely</li>
+        <li>For each side effect: probability bar, risk level, and a plain-English explanation</li>
+    </ul>
+
+    <h3>The Admin Page</h3>
+    <p>If you're setting things up or want to see training metrics:</p>
+    <ul>
+        <li>Button to seed the database and train the model</li>
+        <li>Display of how well the model performed during training</li>
+    </ul>
+
+    <hr>
+
+    <!-- Section 9 -->
+    <h1 id="getting-it-running">Getting It Running</h1>
+    
+    <h3>The Easy Way (Docker)</h3>
+    <p><strong>What you'll need:</strong> Docker and Docker Compose installed on your computer.</p>
+    
+    <p><strong>Steps:</strong></p>
+    <ol>
+        <li>Open your terminal and navigate to the project folder:
+            <pre><code>cd personalized-sideeffect-predictor</code></pre>
+        </li>
+        <li>Start everything up:
+            <pre><code>docker compose up --build</code></pre>
+        </li>
+        <li>Wait a minute or two for everything to start, then load the data:
+            <pre><code>curl -X POST http://localhost:5000/api/seed</code></pre>
+            Or just visit the Admin page and click "Seed & Train"!
+        </li>
+        <li>Open your browser to:
+            <ul>
+                <li><strong>The app:</strong> http://localhost:3000</li>
+                <li><strong>API directly:</strong> http://localhost:5000</li>
+            </ul>
+        </li>
+    </ol>
+
+    <p><strong>To shut it down:</strong></p>
+    <pre><code>docker compose down</code></pre>
+
+    <p><strong>To completely reset (including database):</strong></p>
+    <pre><code>docker compose down -v</code></pre>
+
+    <hr>
+
+    <!-- Section 10 -->
+    <h1 id="development-setup">Setting Up for Development</h1>
+    
+    <h3>Backend Setup</h3>
+    <pre><code>cd backend
+npm install
+pip install -r requirements.txt
+npm run dev</code></pre>
+
+    <p>Create a <code>.env</code> file with:</p>
+    <pre><code>PORT=5000
+MONGO_URI=mongodb://localhost:27017/sideeffect_predictor</code></pre>
+
+    <h3>Frontend Setup</h3>
+    <pre><code>cd frontend
+npm install
+npm run dev</code></pre>
+
+    <h3>Running MongoDB Locally</h3>
+    <p>Quick way with Docker:</p>
+    <pre><code>docker run -d -p 27017:27017 --name mongo mongo:6.0</code></pre>
+
+    <hr>
+
+    <!-- Section 11 -->
+    <h1 id="tweaking-settings">Tweaking the Settings</h1>
+    
+    <h3>Want to Change How Predictions Are Weighted?</h3>
+    <p>Edit these environment variables:</p>
+    
+    <table>
+        <tr>
+            <th>Setting</th>
+            <th>Default</th>
+            <th>What It Controls</th>
+        </tr>
+        <tr>
+            <td><code>RULE_WEIGHT</code></td>
+            <td>0.35</td>
+            <td>How much we trust the medical rules</td>
+        </tr>
+        <tr>
+            <td><code>ML_WEIGHT</code></td>
+            <td>0.45</td>
+            <td>How much we trust the machine learning</td>
+        </tr>
+        <tr>
+            <td><code>NLP_WEIGHT</code></td>
+            <td>0.20</td>
+            <td>How much we trust the text analysis</td>
+        </tr>
+    </table>
+    
+    <blockquote>
+        <strong>Pro tip:</strong> These should add up to 1.0!
+    </blockquote>
+
+    <h3>Other Useful Settings</h3>
+    <table>
+        <tr>
+            <th>Setting</th>
+            <th>Default</th>
+            <th>What It Does</th>
+        </tr>
+        <tr>
+            <td><code>PORT</code></td>
+            <td>5000</td>
+            <td>Which port the server runs on</td>
+        </tr>
+        <tr>
+            <td><code>RATE_LIMIT_MAX_REQUESTS</code></td>
+            <td>100</td>
+            <td>Max requests per minute (prevents abuse)</td>
+        </tr>
+    </table>
+
+    <hr>
+
+    <!-- Section 12 -->
+    <h1 id="security">Keeping Things Secure</h1>
+    
+    <p>We've built in several protections:</p>
+    
+    <ul>
+        <li><strong>Input checking:</strong> We validate everything you send us to prevent bad data</li>
+        <li><strong>Rate limiting:</strong> Can't spam the server—there's a request limit</li>
+        <li><strong>No secrets in code:</strong> Sensitive stuff goes in environment variables</li>
+        <li><strong>Clean error messages:</strong> If something breaks, we don't expose internal details</li>
+    </ul>
+
+    <hr>
+
+    <!-- Section 13 -->
+    <h1 id="whats-next">What's Next?</h1>
+    
+    <h3>Honest Limitations Right Now</h3>
+    <p>Let's be upfront about what this demo version can't do:</p>
+    
+    <ol>
+        <li><strong>The data is synthetic</strong> — We generated sample data for learning purposes, not real clinical records</li>
+        <li><strong>Limited drug list</strong> — We have representative samples, not every medication</li>
+        <li><strong>No drug interactions</strong> — We don't currently check what happens when you take multiple medications</li>
+        <li><strong>Basic text analysis</strong> — We use straightforward methods, not the latest AI language models</li>
+    </ol>
+
+    <h3>If This Were Going Into Production</h3>
+    <p>Here's what we'd add:</p>
+    
+    <table>
+        <tr>
+            <th>Area</th>
+            <th>Enhancements</th>
+        </tr>
+        <tr>
+            <td><strong>Better Data</strong></td>
+            <td>Connect to real pharmacovigilance databases (FDA FAERS); Partner with healthcare providers</td>
+        </tr>
+        <tr>
+            <td><strong>Smarter AI</strong></td>
+            <td>Use advanced ML (gradient boosting, neural networks); Add drug-drug interaction analysis</td>
+        </tr>
+        <tr>
+            <td><strong>Compliance</strong></td>
+            <td>HIPAA compliance; FDA software certification; Full audit logging</td>
+        </tr>
+        <tr>
+            <td><strong>Validation</strong></td>
+            <td>Performance testing; Medical professional review; Prospective studies</td>
+        </tr>
+    </table>
+
+    <hr>
+
+    <!-- Quick Reference -->
+    <h1>Quick Reference</h1>
+    
+    <h3>Project Files at a Glance</h3>
+    <pre><code>personalized-sideeffect-predictor/
+├── backend/              ← Server code
+│   ├── server.js         ← Main entry point
+│   └── src/
+│       ├── services/     ← Prediction logic
+│       ├── models/       ← Database schemas
+│       └── routes/       ← API endpoints
+├── frontend/             ← Website code
+│   └── src/
+│       ├── pages/        ← Main screens
+│       └── components/   ← Reusable UI pieces
+└── docker-compose.yml    ← One-click deployment</code></pre>
+
+    <h3>Jargon Decoder</h3>
+    <table>
+        <tr>
+            <th>Term</th>
+            <th>Plain English</th>
+        </tr>
+        <tr>
+            <td><strong>TF-IDF</strong></td>
+            <td>A way to figure out which words are most important in a document</td>
+        </tr>
+        <tr>
+            <td><strong>One-vs-Rest</strong></td>
+            <td>Training separate models for each possible side effect</td>
+        </tr>
+        <tr>
+            <td><strong>Logistic Regression</strong></td>
+            <td>A method for predicting yes/no outcomes</td>
+        </tr>
+        <tr>
+            <td><strong>Multi-label</strong></td>
+            <td>When one patient might have multiple side effects</td>
+        </tr>
+        <tr>
+            <td><strong>Feature Engineering</strong></td>
+            <td>Turning patient info into numbers the computer can work with</td>
+        </tr>
+    </table>
+
+    <hr>
+
+    <h2>Need Help?</h2>
+    <p>If you run into issues:</p>
+    <ol>
+        <li>Make sure Docker is running</li>
+        <li>Check that ports 3000, 5000, and 27017 aren't in use</li>
+        <li>Try <code>docker compose down -v</code> and start fresh</li>
+        <li>Check the browser console and server logs for error messages</li>
+    </ol>
+
+    <hr>
+
+    <p style="text-align: center; color: #64748b; margin-top: 40px;">
+        <em>Thanks for reading! Remember: this is a learning tool, not medical advice. When in doubt, ask a real doctor! 🏥</em>
+    </p>
+    
+    <p style="text-align: center; color: #94a3b8; margin-top: 20px; font-size: 0.9rem;">
+        Document Version: 1.0.0 | Last Updated: December 2025
+    </p>
+
+</body>
+</html>
+

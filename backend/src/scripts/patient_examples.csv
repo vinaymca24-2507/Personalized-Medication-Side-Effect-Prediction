@@ -1,0 +1,127 @@
+drug_name,age,sex,conditions,side_effect_occurred
+Aspirin,72,M,heart disease,bleeding|stomach pain|dizziness
+Aspirin,68,F,heart disease|diabetes,bleeding|nausea
+Aspirin,45,M,none,stomach pain
+Aspirin,55,F,none,heartburn
+Aspirin,78,M,heart disease|hypertension,bleeding|tinnitus|dizziness
+Aspirin,35,F,none,nausea
+Aspirin,82,F,heart disease,bleeding|dizziness
+Aspirin,50,M,none,stomach pain|heartburn
+Ibuprofen,65,M,kidney disease,kidney problems|stomach pain
+Ibuprofen,42,F,none,stomach pain
+Ibuprofen,70,M,heart disease,stomach pain|dizziness
+Ibuprofen,28,F,none,nausea
+Ibuprofen,55,M,hypertension,headache
+Ibuprofen,67,F,kidney disease,kidney problems|nausea
+Paracetamol,55,M,liver disease,liver toxicity
+Paracetamol,32,F,none,nausea
+Paracetamol,70,M,liver disease,liver toxicity|nausea
+Paracetamol,25,F,none,headache
+Paracetamol,48,M,none,nausea
+Metformin,58,M,diabetes,diarrhea|nausea
+Metformin,65,F,diabetes|kidney disease,nausea|stomach pain
+Metformin,72,M,diabetes|liver disease,diarrhea
+Metformin,45,F,diabetes,nausea
+Metformin,68,M,diabetes|heart disease,diarrhea|stomach pain
+Metformin,52,F,diabetes,nausea
+Lisinopril,68,M,hypertension|heart disease,dry cough|dizziness
+Lisinopril,55,F,hypertension,dry cough
+Lisinopril,72,M,hypertension|kidney disease,dry cough
+Lisinopril,48,F,hypertension,headache
+Lisinopril,65,M,hypertension|diabetes,dry cough|low blood pressure
+Atorvastatin,62,M,heart disease,muscle pain
+Atorvastatin,58,F,heart disease|liver disease,muscle pain
+Atorvastatin,70,M,heart disease|diabetes,muscle pain|joint pain
+Atorvastatin,55,F,hypertension,headache
+Atorvastatin,68,M,heart disease,muscle pain|fatigue
+Omeprazole,55,M,none,headache|diarrhea
+Omeprazole,70,F,none,headache
+Omeprazole,42,M,none,nausea
+Omeprazole,65,F,none,stomach pain
+Amlodipine,68,M,hypertension|heart disease,ankle swelling|headache
+Amlodipine,55,F,hypertension,dizziness
+Amlodipine,72,M,hypertension,ankle swelling|flushing|dizziness
+Amlodipine,48,F,hypertension,headache|fatigue
+Metoprolol,65,M,heart disease|hypertension,fatigue|dizziness
+Metoprolol,72,F,heart disease,fatigue
+Metoprolol,58,M,hypertension,fatigue
+Metoprolol,68,F,heart disease|asthma,fatigue
+Metoprolol,50,M,hypertension,dizziness
+Sertraline,35,F,depression,nausea|insomnia|anxiety
+Sertraline,28,M,anxiety disorder,headache|diarrhea
+Sertraline,45,F,depression,drowsiness|weight gain
+Sertraline,52,M,depression|anxiety disorder,insomnia|nausea
+Sertraline,68,F,depression,dizziness|drowsiness
+Sertraline,22,M,anxiety disorder,anxiety|insomnia
+Gabapentin,58,M,none,drowsiness|dizziness
+Gabapentin,72,F,none,drowsiness|fatigue|dizziness
+Gabapentin,45,M,none,weight gain
+Gabapentin,65,F,none,drowsiness
+Losartan,68,M,hypertension|kidney disease,dizziness
+Losartan,55,F,hypertension,fatigue
+Losartan,72,M,hypertension|heart disease,low blood pressure|dizziness
+Losartan,60,F,hypertension|diabetes,dizziness
+Hydrochlorothiazide,65,M,hypertension,dizziness
+Hydrochlorothiazide,72,F,hypertension|diabetes,dizziness
+Hydrochlorothiazide,58,M,hypertension,dizziness
+Hydrochlorothiazide,68,F,hypertension,dizziness
+Levothyroxine,55,F,none,heart palpitations
+Levothyroxine,68,M,heart disease,heart palpitations|anxiety
+Levothyroxine,42,F,none,insomnia
+Levothyroxine,60,F,heart disease,tremor|heart palpitations
+Prednisone,55,M,none,weight gain|insomnia|mood changes
+Prednisone,68,F,diabetes,weight gain
+Prednisone,45,M,hypertension,insomnia
+Prednisone,72,F,none,mood changes
+Prednisone,15,M,asthma,mood changes
+Tramadol,62,M,none,nausea|constipation|drowsiness
+Tramadol,70,F,none,dizziness|drowsiness|constipation
+Tramadol,48,M,none,nausea|headache
+Tramadol,55,F,none,drowsiness
+Amoxicillin,35,M,none,diarrhea
+Amoxicillin,8,F,none,diarrhea|rash
+Amoxicillin,45,M,none,nausea
+Amoxicillin,28,F,none,stomach pain|diarrhea
+Ciprofloxacin,55,M,none,nausea|dizziness
+Ciprofloxacin,70,F,none,joint pain
+Ciprofloxacin,42,M,none,diarrhea
+Ciprofloxacin,65,F,none,insomnia|joint pain
+Fluoxetine,32,F,depression,nausea|insomnia
+Fluoxetine,45,M,depression|anxiety disorder,headache|anxiety
+Fluoxetine,58,F,depression,drowsiness
+Fluoxetine,25,M,anxiety disorder,insomnia|anxiety
+Fluoxetine,16,F,depression,anxiety|insomnia
+Warfarin,72,M,heart disease,bleeding|bruising
+Warfarin,68,F,heart disease|liver disease,bleeding
+Warfarin,75,M,heart disease,bleeding|nausea
+Warfarin,65,F,heart disease,bruising
+Clopidogrel,68,M,heart disease,bleeding|bruising
+Clopidogrel,72,F,heart disease,diarrhea|bleeding
+Clopidogrel,60,M,heart disease,stomach pain
+Alprazolam,45,F,anxiety disorder,drowsiness|dizziness
+Alprazolam,72,M,anxiety disorder,confusion|drowsiness
+Alprazolam,35,F,anxiety disorder,drowsiness|fatigue
+Alprazolam,68,F,none,drowsiness|confusion
+Lorazepam,55,M,anxiety disorder,drowsiness|weakness
+Lorazepam,70,F,none,drowsiness|confusion|dizziness
+Lorazepam,42,M,anxiety disorder,drowsiness
+Escitalopram,38,F,depression,nausea|insomnia
+Escitalopram,52,M,depression|anxiety disorder,headache|drowsiness
+Escitalopram,28,F,anxiety disorder,nausea
+Escitalopram,65,M,depression,dizziness|drowsiness
+Duloxetine,48,F,depression,nausea|dry mouth|drowsiness
+Duloxetine,62,M,depression|liver disease,nausea
+Duloxetine,55,F,none,constipation|fatigue
+Duloxetine,70,M,depression,dizziness|dry mouth
+Rosuvastatin,60,M,heart disease,muscle pain
+Rosuvastatin,68,F,heart disease|liver disease,muscle pain
+Rosuvastatin,55,M,diabetes,headache
+Rosuvastatin,72,F,heart disease,muscle pain|joint pain
+Trazodone,55,M,depression,drowsiness|dizziness
+Trazodone,68,F,depression,drowsiness|dry mouth|dizziness
+Trazodone,42,M,none,drowsiness
+Furosemide,72,M,heart disease,dizziness|dehydration
+Furosemide,68,F,heart disease|kidney disease,dehydration
+Furosemide,65,M,heart disease,dizziness
+
+

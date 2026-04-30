@@ -1,0 +1,59 @@
+services:
+  frontend:
+    build:
+      context: .
+      dockerfile: infra/Dockerfiles/frontend.Dockerfile
+    ports:
+      - "3001:80"
+    depends_on:
+      backend:
+        condition: service_healthy
+    networks:
+      - app-network
+
+  backend:
+    build:
+      context: .
+      dockerfile: infra/Dockerfiles/backend.Dockerfile
+    ports:
+      - "5000:5000"
+    environment:
+      NODE_ENV: production
+      MONGO_URI: mongodb://mongodb:27017/sideeffect_predictor
+      PORT: 5000
+      RULE_WEIGHT: "0.35"
+      ML_WEIGHT: "0.45"
+      NLP_WEIGHT: "0.20"
+    depends_on:
+      mongodb:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000/api/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+    networks:
+      - app-network
+
+  mongodb:
+    image: mongo:6.0
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongosh --quiet
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  mongodb_data:
+
