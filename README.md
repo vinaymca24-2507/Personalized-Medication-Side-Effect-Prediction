@@ -66,10 +66,22 @@ graph TD
 Our unique prediction engine combines three specialized approaches to ensure accuracy and context-awareness:
 
 1. **Rule-based (35%)**: Hardcoded rules for high-risk demographics (e.g., age > 65 or specific liver conditions).
-2. **ML Model (45%)**: Logistic regression trained on historical patient data, predicting multi-label side effects based on features like age, sex, and health history.
+2. **ML Model (45%)**: An ensemble method using historical patient data to predict multi-label side effects based on features like age, sex, and health history.
 3. **NLP (20%)**: TF-IDF similarity scoring based on drug descriptions to catch historically documented symptoms.
 
 *(Weights are configurable via environment variables)*
+
+---
+
+## 🧠 Machine Learning Algorithms
+
+The core of our ML prediction engine utilizes a **Hybrid Ensemble Method** to maximize accuracy and minimize false positives. We leverage the following algorithms:
+
+- **Logistic Regression**: Used as the baseline model to handle linearly separable features and provide clear probabilistic outputs for individual side effects.
+- **Random Forest Classifier**: Handles non-linear relationships between patient conditions and side effects. Its bagging technique prevents overfitting on our synthetic datasets.
+- **Support Vector Machine (SVM)**: Utilized for its effectiveness in high-dimensional spaces, particularly when dealing with the complex, multi-label nature of drug interactions.
+
+These models are combined to generate a robust prediction score, which is then weighted alongside the Rule-based and NLP modules.
 
 ---
 
