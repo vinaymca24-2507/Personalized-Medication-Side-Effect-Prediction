@@ -60,3 +60,11 @@ venv.bak/
 # Project specific
 backend/models/*.joblib
 backend/models/metrics.json
+
+# Ignored Documentation Files (Deleted from remote, kept locally)
+DOCUMENTATION.html
+DOCUMENTATION.md
+Final Project Report.pdf
+IMPLEMENTATION_CHAPTER.md
+Project_Report_Introduction.md
+Project_Report_Scope_and_Users.md

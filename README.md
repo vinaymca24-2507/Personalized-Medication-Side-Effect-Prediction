@@ -1,59 +1,116 @@
-# Personalized Medication Side-Effect Predictor
+<div align="center">
 
-⚠️ **DISCLAIMER: For demonstration purposes only — not medical advice. Consult a healthcare professional.**
+# 💊 Personalized Medication Side-Effect Predictor
+
+[![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](https://reactjs.org/)
+[![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)](https://nodejs.org/)
+[![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
+[![MongoDB](https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white)](https://www.mongodb.com/)
+[![Docker](https://img.shields.io/badge/Docker-2CA5E0?style=for-the-badge&logo=docker&logoColor=white)](https://www.docker.com/)
 
 An AI-powered web application that predicts potential medication side effects based on drug information and patient characteristics using a hybrid approach combining Rule-based logic, Machine Learning, and NLP.
 
-## 🚀 Quick Start with Docker
+> **⚠️ DISCLAIMER: For educational and demonstration purposes only. This is not medical advice. Always consult a healthcare professional.**
+
+</div>
+
+---
+
+## ✨ Features
+
+- 🔍 **Drug Search**: Autocomplete drug lookup from a comprehensive database.
+- 👤 **Patient Profiling**: Considers Age, Sex, and pre-existing conditions.
+- 🧠 **Hybrid Prediction Engine**: Combines Rule-based Logic, ML, and NLP scoring.
+- 📊 **Explainability**: Understand exactly *why* a side effect is predicted.
+- 🚦 **Risk Indicators**: Visual risk levels (Low / Moderate / High).
+- 🛠️ **Admin Panel**: Easily seed the database and view training metrics.
+
+---
+
+## 🚀 Quick Start (Docker)
+
+The fastest way to get the project running locally is using Docker.
 
 ```bash
-# Clone and navigate to project
+# 1. Clone the repository
+git clone https://github.com/vinaymca24-2507/Personalized-Medication-Side-Effect-Prediction.git
 cd personalized-sideeffect-predictor
 
-# Start all services
+# 2. Start all services using Docker Compose
 docker compose up --build
 
-# Wait for services to start, then seed the database
+# 3. Seed the database and train the model (Required on first run)
 curl -X POST http://localhost:5000/api/seed
-
-# Open the app
-# Frontend: http://localhost:3000
-# Backend API: http://localhost:5000
 ```
 
-## 📋 Features
+### 🌍 Access Points
+- **Frontend App**: `http://localhost:3000`
+- **Backend API**: `http://localhost:5000`
 
-- **Drug Search**: Autocomplete drug lookup from database
-- **Patient Profiling**: Age, sex, and pre-existing conditions
-- **Hybrid Prediction**: Combines rules, ML, and NLP scores
-- **Explainability**: Shows contribution of each factor
-- **Risk Levels**: Visual indicators (low/moderate/high)
-- **Admin Panel**: Seed database and view training metrics
+---
 
 ## 🏗️ Architecture
 
-```
-┌─────────────┐    ┌─────────────┐    ┌─────────────┐
-│   Frontend  │───▶│   Backend   │───▶│   MongoDB   │
-│   (React)   │    │  (Node.js)  │    │             │
-└─────────────┘    └──────┬──────┘    └─────────────┘
-                          │
-                   ┌──────▼──────┐
-                   │   Python    │
-                   │  ML/NLP     │
-                   └─────────────┘
+```mermaid
+graph TD
+    A[Frontend React App] -->|REST API| B(Backend Node.js)
+    B -->|Query / Write| C[(MongoDB)]
+    B -->|Spawn Process| D{Python ML/NLP Engine}
+    D -->|Prediction Results| B
 ```
 
-## 🔧 API Endpoints
+---
+
+## 🤖 Hybrid Algorithm
+
+Our unique prediction engine combines three specialized approaches to ensure accuracy and context-awareness:
+
+1. **Rule-based (35%)**: Hardcoded rules for high-risk demographics (e.g., age > 65 or specific liver conditions).
+2. **ML Model (45%)**: Logistic regression trained on historical patient data, predicting multi-label side effects based on features like age, sex, and health history.
+3. **NLP (20%)**: TF-IDF similarity scoring based on drug descriptions to catch historically documented symptoms.
+
+*(Weights are configurable via environment variables)*
+
+---
+
+## 💻 Local Development (Without Docker)
+
+If you prefer to run the services directly on your host machine:
+
+### 1️⃣ Database Setup
+Ensure you have MongoDB running locally on port `27017` or use Docker:
+```bash
+docker run -d -p 27017:27017 --name mongo mongo:6.0
+```
+
+### 2️⃣ Backend Setup
+```bash
+cd backend
+npm install
+pip install -r requirements.txt
+npm run dev
+```
+
+### 3️⃣ Frontend Setup
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+---
+
+## 🔧 API Reference
 
 | Endpoint | Method | Description |
 |----------|--------|-------------|
-| `/api/predict` | POST | Predict side effects |
-| `/api/drugs?q=` | GET | Search drugs |
-| `/api/seed` | POST | Seed DB & train model |
-| `/api/health` | GET | Service health status |
+| `/api/predict` | `POST` | Get side-effect predictions |
+| `/api/drugs?q=` | `GET`  | Search & filter drugs |
+| `/api/seed`    | `POST` | Seed DB & train the ML model |
+| `/api/health`  | `GET`  | Service health status |
 
-### Predict Request Example
+<details>
+<summary><b>View /api/predict Example Request</b></summary>
 
 ```bash
 curl -X POST http://localhost:5000/api/predict \
@@ -65,116 +122,32 @@ curl -X POST http://localhost:5000/api/predict \
     "conditions": ["heart disease"]
   }'
 ```
+</details>
 
-## 🧪 Local Development (Without Docker)
+---
 
-### Backend
-```bash
-cd backend
-npm install
-pip install -r requirements.txt
-npm run dev
-```
+## 🛡️ Security & Ethics
 
-### Frontend
-```bash
-cd frontend
-npm install
-npm run dev
-```
+- **Security**: Implements Input Validation, Rate Limiting (100 req/min), and strict CORS policies.
+- **Ethics**: Predictions are based on synthetic data and are **not clinically validated**. Should never be used for real-world treatment decisions. 
 
-### MongoDB
-```bash
-# Install MongoDB locally or use Docker
-docker run -d -p 27017:27017 --name mongo mongo:6.0
-```
+To deploy in a real-world scenario, this project would require integration with validated datasets (like SIDER or FAERS) and rigorous clinical testing.
 
-## 🤖 Hybrid Algorithm
-
-The prediction combines three approaches:
-
-1. **Rule-based (35%)**: Age and condition risk multipliers
-   - Elderly (65+): Higher risk for dizziness, confusion, bleeding
-   - Liver disease: Amplifies hepatotoxicity risk
-
-2. **ML Model (45%)**: Logistic regression trained on patient data
-   - Features: age, sex, conditions, drug
-   - Multi-label classification for side effects
-
-3. **NLP (20%)**: TF-IDF similarity from drug descriptions
-   - Frequency-based scoring from known side effects
-
-Weights are configurable via environment variables.
-
-## 📊 Training the Model
-
-The model trains on synthetic patient data when you call:
-
-```bash
-POST /api/seed
-```
-
-This loads `seed_data.csv` (drugs) and `patient_examples.csv` (patient outcomes), then trains a OneVsRestClassifier.
-
-## 🔒 Security
-
-- Input validation with express-validator
-- Rate limiting (100 requests/minute)
-- CORS enabled
-- No hardcoded secrets (use .env)
-
-## ⚠️ Ethics & Safety
-
-This tool is for **educational demonstration only**:
-
-- NOT a substitute for medical advice
-- Predictions are based on synthetic data
-- Not clinically validated
-- Should never be used for actual treatment decisions
-
-### For Real-World Use
-
-1. Import validated datasets (SIDER, FAERS)
-2. Clinical validation with medical professionals
-3. Regulatory compliance (FDA, HIPAA)
-4. Proper model evaluation (ROC-AUC, clinical trials)
+---
 
 ## 📁 Project Structure
 
-```
-personalized-sideeffect-predictor/
-├── docker-compose.yml
-├── README.md
-├── frontend/
-│   ├── src/
-│   │   ├── pages/
-│   │   ├── components/
-│   │   └── api/
-│   └── package.json
-├── backend/
-│   ├── server.js
-│   ├── src/
-│   │   ├── routes/
-│   │   ├── models/
-│   │   ├── services/
-│   │   └── scripts/
-│   └── package.json
-└── infra/
-    └── Dockerfiles/
+```text
+📦 Personalized-Medication-Side-Effect-Prediction
+ ┣ 📂 backend/         # Node.js Server & Python ML Scripts
+ ┣ 📂 frontend/        # React User Interface
+ ┣ 📂 infra/           # Dockerfiles & Nginx Configs
+ ┣ 📜 docker-compose.yml
+ ┗ 📜 README.md
 ```
 
-## 🎯 Demo Walkthrough (60 seconds)
-
-1. Open http://localhost:3000
-2. Go to **Admin** → Click **Seed & Train**
-3. Wait for success message
-4. Go to **Predict** page
-5. Enter: Aspirin, Age: 72, Male, Heart Disease
-6. Click **Predict Side Effects**
-7. View results with risk levels and explanations
+---
 
 ## 📝 License
 
-MIT License - For educational purposes only.
-
-
+Distributed under the **MIT License**. For educational purposes only.
